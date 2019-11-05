@@ -1,1 +1,76 @@
-/* You can add global styles to this file, and also import other style files */
+th {
+  text-align: center;
+}
+
+.character-thumbnail {
+  display: inline;
+  border-radius: 100%;
+}
+
+.character-thumbnail:hover {
+  border-radius: 10%;
+  cursor: pointer;
+}
+
+.character-card {
+  height: 200px;
+  background-color: white;
+}
+
+div.col-md-6 {
+  padding: 25px 25px;
+}
+
+@font-face {
+  font-family: customFont;
+  src: url(./assets/fonts/y14.5m-2009.ttf);
+}
+
+.row>.logoStand {
+  text-align: left;
+  padding: 10px 0px 10px 45px;
+}
+
+@media (max-width: 768px) {
+  .row>.logoStand {
+    display: none;
+    text-align: center;
+    padding: 10px 0px 0px 0px;
+  }
+}
+
+div.btn-info {
+  background-color: rgb(239, 28, 35);
+  border-color: rgb(239, 28, 35);
+  border-radius: 0;
+}
+
+div.btn-info:hover {
+  background-color: rgb(194, 19, 25);
+  border-color: rgb(194, 19, 25);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+div.btn-info:not(:disabled):not(.disabled):active {
+  background-color: rgb(241, 10, 18);
+  border-color: rgb(241, 10, 18);
+  border-radius: 0;
+}
+
+.page-link {
+  cursor: pointer;
+  margin: 10px;
+}
+
+.page-link::selection{
+    background-color: transparent;
+}
+
+.page-item>.current-page {
+  z-index: 2;
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+  font-weight: 800;
+}
