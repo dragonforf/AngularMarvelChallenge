@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CharactersService } from './characters.service';
 import { Character } from './character';
 import { Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'characters',
@@ -12,15 +13,14 @@ export class CharactersComponent{
     currentPage: number=1;
     characters: Observable<any>;
     lowerLimitReached: boolean=true;
-    loading: boolean=false;
 
-    constructor(private service: CharactersService){}
+    constructor(private service: CharactersService, private spinner: NgxSpinnerService){}
 
     ngOnInit(){
-        this.loading=true;
+        this.spinner.show();
         this.service.getCharacters(this.currentPage).subscribe(
             (characters)=>{
-                this.loading=false;
+                this.spinner.hide();
                 this.characters=characters
             }
         );
@@ -36,7 +36,4 @@ export class CharactersComponent{
         }
     }
 
-    toggleLoading(){
-        this.loading=!this.loading;
-    }
 }

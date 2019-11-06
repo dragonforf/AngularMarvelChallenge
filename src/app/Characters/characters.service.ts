@@ -6,7 +6,7 @@ import {Character} from './character';
 
 @Injectable({providedIn: 'root'})
 export class CharactersService{
-    itemsPerPage=6;
+    itemsPerPage=10;
     charactersUrl: string="https://gateway.marvel.com:443/v1/public/characters?";
     limit="limit="+this.itemsPerPage;
     offset="offset=0";
@@ -19,7 +19,6 @@ export class CharactersService{
     getCharacters(page: number): Observable<any>{
         this.offset="offset="+(page-1)*this.itemsPerPage;
         let requestUrl=this.charactersUrl+this.limit+"&"+this.offset+"&"+this.ts+"&"+this.apikey+"&"+this.hash;
-        return this.http.get<any>(requestUrl)
-            .pipe(map((data: any) => data.data.results));
+        return this.http.get<any>(requestUrl).pipe(map((data: any) => data.data.results));
     }
 }
