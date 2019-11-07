@@ -33,6 +33,13 @@
   font-size: 28px;
 }
 
+.panel-subtitle {
+  font-weight: bold;
+  margin-left: 3px;
+  font-size: 20px;
+  color: rgb(123, 113, 114);
+}
+
 .characters-icon {
   background-image: url('./assets/icons/characters.png');
   display: inline-block;
@@ -69,10 +76,9 @@ div.character-thumbnail-container {
   white-space: nowrap;
 }
 
-.character-name:hover{
-    cursor: pointer;
-    color: rgb(239, 28, 35);
-    font-weight: 700;
+.character-name:hover {
+  color: rgb(239, 28, 35);
+  font-weight: 700;
 }
 
 .character-description {
@@ -85,7 +91,9 @@ div.character-card {
 }
 
 div.related-comic {
-  padding: 10px 15px;
+  width: 100%;
+  height: 50px;
+  padding: 0px 15px 10px 15px;
 }
 
 @font-face {

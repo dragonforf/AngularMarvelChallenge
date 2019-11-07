@@ -7,7 +7,7 @@ import {Character} from './character';
 @Injectable({providedIn: 'root'})
 export class CharactersService{
     itemsPerPage=10;
-    charactersUrl: string="https://gateway.marvel.com:443/v1/public/characters?";
+    charactersUrl: string="https://gateway.marvel.com:443/v1/public/characters";
     limit="limit="+this.itemsPerPage;
     offset="offset=0";
     ts="ts=1";
@@ -16,9 +16,15 @@ export class CharactersService{
     
     constructor(private http: HttpClient){}
 
-    getCharacters(page: number): Observable<any>{
-        this.offset="offset="+(page-1)*this.itemsPerPage;
-        let requestUrl=this.charactersUrl+this.limit+"&"+this.offset+"&"+this.ts+"&"+this.apikey+"&"+this.hash;
-        return this.http.get<any>(requestUrl).pipe(map((data: any) => data.data.results));
+    getCharacters(itemsPerPage:number, page: number, nameStartsWith?: string): Observable<any>{
+        this.offset="offset="+(page-1)*itemsPerPage;
+        let requestUrl=this.charactersUrl+"?"+this.limit+"&"+this.offset;
+        if(nameStartsWith!=null){
+            if(nameStartsWith.length>0){
+                requestUrl=requestUrl+"&nameStartsWith="+nameStartsWith;
+            }
+        }
+        requestUrl=requestUrl+"&"+this.ts+"&"+this.apikey+"&"+this.hash;
+        return this.http.get<any>(requestUrl).pipe(map((data) => [data.data.total, data.data.results]));
     }
 }

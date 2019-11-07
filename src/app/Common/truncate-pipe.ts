@@ -4,7 +4,7 @@ import {Pipe, PipeTransform} from '@angular/core'
     name: 'truncate'
 })
 export class TruncatePipe implements PipeTransform{
-    transform(value: string, limit=165, ellipsis="..."){
+    transform(value: string, limit: number, ellipsis="..."){
         if(value.length<=limit){
             return value;
         }

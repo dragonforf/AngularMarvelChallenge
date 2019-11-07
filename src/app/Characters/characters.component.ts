@@ -13,26 +13,43 @@ export class CharactersComponent{
     currentPage: number=1;
     characters: Observable<any>;
     lowerLimitReached: boolean=true;
+    nameStartsWith: string="";
+    numberOfPages: number;
+    itemsPerPage: number;
+
 
     constructor(private service: CharactersService, private spinner: NgxSpinnerService){}
 
     ngOnInit(){
+        this.itemsPerPage=10;
         this.spinner.show();
-        this.service.getCharacters(this.currentPage).subscribe(
+        this.service.getCharacters(this.itemsPerPage, this.currentPage, this.nameStartsWith).subscribe(
             (characters)=>{
+                console.log("this.itemsPerPage="+this.itemsPerPage);
+                this.numberOfPages=Math.ceil(characters[0]/this.itemsPerPage);
+                console.log("this.numberOfPages="+this.numberOfPages);
+                this.characters=characters[1];
+                this.characters.forEach(
+                    (i)=>{
+                        i.comics.items.splice(4, i.comics.items.length-4);
+                    }
+                )
                 this.spinner.hide();
-                this.characters=characters
             }
         );
-        
+    }
+
+    filterByName(nameStartsWith: string){
+        this.nameStartsWith=nameStartsWith;
+        this.changePage(1);
     }
 
     changePage(page: number){
         if(page>=1){
             this.currentPage=page;
             this.lowerLimitReached=(this.currentPage<=1)?true:false;
-            console.log("lowerLimitReached="+this.lowerLimitReached);
             this.ngOnInit();
+            window.scrollTo(0, 0);
         }
     }
 

@@ -6,8 +6,8 @@
     </div>
     <div class="col-md-4">
         <div class="d-flex align-items-center search-box-container">
-            <input  type="search" placeholder="Search character..." class="search-box" />
-            <div class="search-icon"></div>
+            <input #nameStartsWith type="search" placeholder="Search character..." class="search-box" (keydown.enter)="filterByName(nameStartsWith.value)" />
+            <div class="search-icon" (click)="filterByName(nameStartsWith.value)"></div>
         </div>
     </div>
     <div class="col-md-4"></div>
@@ -37,25 +37,14 @@
                         <img src="{{character.thumbnail.path}}/standard_xlarge.{{character.thumbnail.extension}}" class="character-thumbnail" />
                     </div>
                     <div class="col-md-8">
-                        <div alt="character.name" class="character-name">{{character.name | uppercase}}</div>
-                        <div class="character-description">{{character.description | truncate}}</div>
+                        <div title="{{character.name}}" class="character-name">{{character.name | uppercase | truncate:'24'}}</div>
+                        <div class="character-description">{{character.description | truncate:'165'}}</div>
                         <div class="btn btn-info" (click)="toggleLoading()">VIEW MORE</div>
                     </div>
                 </div>
                 <div class="row" style="background-color: white;">                        
-                    <div class="col-md-12">Related comics</div>
-                    <div class="col-md-6 related-comic">
-                        <div style="width: 100%; height: 50px; border: 2px dotted teal;"></div>
-                    </div>
-                    <div class="col-md-6 related-comic">
-                        <div style="width: 100%; height: 50px; border: 2px dotted teal;"></div>
-                    </div>
-                    <div class="col-md-6 related-comic">
-                        <div style="width: 100%; height: 50px; border: 2px dotted teal;"></div>
-                    </div>
-                    <div class="col-md-6 related-comic">
-                        <div style="width: 100%; height: 50px; border: 2px dotted teal;"></div>
-                    </div>
+                    <div class="col-md-12 panel-subtitle">Related comics</div>
+                    <div *ngFor='let comic of character.comics.items' class="col-md-6 related-comic">&bull; {{comic.name | truncate:'36'}}</div>
                 </div>
             </div>
         </div>
@@ -64,10 +53,10 @@
                 <li class="page-item"><a class="page-link" (click)='changePage(currentPage-1)' [hidden]="lowerLimitReached">&lt;</a></li>
                 <li class="page-item"><a class="page-link" (click)='changePage(currentPage-1)' [hidden]="lowerLimitReached">{{currentPage-1}}</a></li>
                 <li class="page-item"><a class="page-link current-page">{{currentPage}}</a></li>
-                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+1)'>{{currentPage+1}}</a></li>
-                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+2)'>{{currentPage+2}}</a></li>
-                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+3)'>{{currentPage+3}}</a></li>
-                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+1)'>&gt;</a></li>
+                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+1)' *ngIf="numberOfPages>=currentPage+1">{{currentPage+1}}</a></li>
+                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+2)' *ngIf="numberOfPages>=currentPage+2">{{currentPage+2}}</a></li>
+                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+3)' *ngIf="numberOfPages>=currentPage+3">{{currentPage+3}}</a></li>
+                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+1)' *ngIf="numberOfPages>=currentPage+1">&gt;</a></li>
             </ul>
         </nav>
     </div>
