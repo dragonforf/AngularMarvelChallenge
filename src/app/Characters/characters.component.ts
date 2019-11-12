@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CharactersService } from './characters.service';
 import { Character } from './character';
 import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ComicDetailModalComponent } from '../Comics/comic-detail.modal.component';
-import { Comic } from '../Comics/comic';
 import { CharacterDetailModalComponent } from './CharacterDetail/character-detail.modal.component';
 import { Thumbnail } from '../Common/thumbnail';
 import { ComicsService } from '../Comics/comics.service';
+import { Comic } from '../Comics/comic';
 
 @Component({
     selector: 'characters',
@@ -17,13 +17,14 @@ import { ComicsService } from '../Comics/comics.service';
 })
 export class CharactersComponent{
     currentPage: number=1;
+    @Input() nameStartsWith: string;
     response: Observable<any>;
     characters: Character[];
     lowerLimitReached: boolean=true;
-    nameStartsWith: string;
     numberOfPages: number;
     itemsPerPage: number;
     sortBy: string="name";
+    @Output() theComic=new EventEmitter<Comic>(); 
 
     constructor(private service: CharactersService, private spinner: NgxSpinnerService, private dialogService: MatDialog, private comicService: ComicsService){}
 
@@ -91,7 +92,22 @@ export class CharactersComponent{
                 height: '465px',
                 data: comic
             });
+            dialogRef.afterClosed().subscribe(result => {
+                if(result.event == 'Add'){
+                  this.addFavourite(result.data);
+                }else if(result.event == 'Delete'){
+                  this.deleteFavourite(result.data);
+                }
+              });
             this.spinner.hide();
         });
+    }
+
+    addFavourite(comic: Comic){
+        this.theComic.emit(comic);
+    }
+
+    deleteFavourite(idComic: number){
+
     }
 }

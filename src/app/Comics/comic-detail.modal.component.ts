@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Comic } from './comic';
 import { ComicsService } from './comics.service';
@@ -9,7 +9,7 @@ import { ComicsService } from './comics.service';
 })
 export class ComicDetailModalComponent {
     theComic: Comic;
-    constructor (public dialogRef: MatDialogRef<ComicDetailModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private comicService: ComicsService){}
+    constructor (public dialogRef: MatDialogRef<ComicDetailModalComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any){}
 
     ngOnInit(){
         this.theComic=this.data;
@@ -19,8 +19,8 @@ export class ComicDetailModalComponent {
         this.dialogRef.close();
     }
 
-    addFavourite(id: number){
-        
+    addFavourite(){
+        this.dialogRef.close({event: "Add", data: this.theComic});
     }
 
 }

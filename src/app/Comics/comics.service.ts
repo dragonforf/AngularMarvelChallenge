@@ -17,7 +17,6 @@ export class ComicsService{
         resourceURI=resourceURI+"?"+this.ts+"&"+this.apikey+"&"+this.hash;
         return this.http.get<any>(resourceURI).pipe(map((data) => {
             let theData=data.data.results[0];
-            console.log(theData);
             return new Comic(theData.id,
                              theData.title,
                              theData.description,

@@ -1,73 +1,48 @@
-<ngx-spinner type="ball-clip-rotate-multiple" color="rgb(239, 28, 35)"></ngx-spinner>
-
-<div class="row header">
-    <div class="col-md-4 logoStand">
-        <img src="./assets/developer_marvel.png" />
-    </div>
-    <div class="col-md-4">
-        <div class="d-flex align-items-center search-box-container">
-            <input #nameStartsWith type="search" placeholder="Search character..." class="search-box" (keydown.enter)="filterByName(nameStartsWith.value)" />
-            <div class="search-icon" (click)="filterByName(nameStartsWith.value)"></div>
-        </div>
-    </div>
-    <div class="col-md-4"></div>
-</div>
-
+<br />
 <div class="row">
-    <div class="col-md-9 main-container">
-        <br />
-        <div class="row">
-            <div class="col-md-9 d-flex align-items-center">
-                <div class="characters-icon"></div>
-                <div class="panel-title">Characters</div>
-            </div>
-            <div class="col-md-3">
-                <select class="form-control" (change)="changeSorting($event.target.value)" aria-placeholder="Sort by">
-                    <option>Name</option>
-                    <option>Modified</option>
-                    <option>Name (Descending)</option>
-                    <option>Modified (Descending)</option>
-                </select>
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div *ngFor='let character of characters' class="col-md-6 character-card">
-                <div class="row character-detail">
-                    <div class="col-md-4 character-thumbnail-container">
-                        <img class="character-thumbnail" src="{{character.thumbnail.path}}/standard_xlarge.{{character.thumbnail.extension}}" />
-                    </div>
-                    <div class="col-md-8">
-                        <div title="{{character.name}}" class="character-name">{{character.name | uppercase | truncate:'24'}}</div>
-                        <div class="character-description">{{character.description | truncate:'165'}}</div>
-                        <div class="btn btn-info" (click)="openCharacterModal(character)">VIEW MORE</div>
-                    </div>
-                </div>
-                <div class="row" style="background-color: white;">                        
-                    <div class="col-md-12 panel-subtitle">Related comics</div>
-                    <div *ngFor='let comic of character.comics.slice(0, 4)' class="col-md-6 related-comic">
-                        &bull; <a class="comic-item" (click)="openComicModal(comic.resourceURI)">{{comic.name | truncate:'36'}}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" (click)='changePage(currentPage-1)' [hidden]="lowerLimitReached">&lt;</a></li>
-                <li class="page-item"><a class="page-link" (click)='changePage(currentPage-1)' [hidden]="lowerLimitReached">{{currentPage-1}}</a></li>
-                <li class="page-item"><a class="page-link current-page" *ngIf="numberOfPages>=currentPage">{{currentPage}}</a></li>
-                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+1)' *ngIf="numberOfPages>=currentPage+1">{{currentPage+1}}</a></li>
-                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+2)' *ngIf="numberOfPages>=currentPage+2">{{currentPage+2}}</a></li>
-                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+3)' *ngIf="numberOfPages>=currentPage+3">{{currentPage+3}}</a></li>
-                <li class="page-item"><a class="page-link" (click)='changePage(currentPage+1)' *ngIf="numberOfPages>=currentPage+1">&gt;</a></li>
-            </ul>
-        </nav>
+    <div class="col-md-9 d-flex align-items-center">
+        <div class="characters-icon"></div>
+        <div class="panel-title">Characters</div>
     </div>
-    <div class="col-md-3 favourites-panel">
-        <br />
-        <div class="favourites-container d-flex align-items-center">
-            <div class="favourites-icon"></div>
-            <div class="panel-title">My favourites</div>
+    <div class="col-md-3">
+        <select class="form-control" (change)="changeSorting($event.target.value)" aria-placeholder="Sort by">
+            <option>Name</option>
+            <option>Modified</option>
+            <option>Name (Descending)</option>
+            <option>Modified (Descending)</option>
+        </select>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div *ngFor='let character of characters' class="col-md-6 character-card">
+        <div class="row character-detail">
+            <div class="col-md-4 character-thumbnail-container">
+                <img class="character-thumbnail" src="{{character.thumbnail.path}}/standard_xlarge.{{character.thumbnail.extension}}" />
+            </div>
+            <div class="col-md-8">
+                <div title="{{character.name}}" class="character-name">{{character.name | uppercase | truncate:'24'}}</div>
+                <div class="character-description">{{character.description | truncate:'165'}}</div>
+                <div class="btn btn-info" (click)="openCharacterModal(character)">VIEW MORE</div>
+            </div>
+        </div>
+        <div class="row" style="background-color: white;">                        
+            <div class="col-md-12 panel-subtitle">Related comics</div>
+            <div *ngFor='let comic of character.comics.slice(0, 4)' class="col-md-6 related-comic">
+                &bull; <a class="comic-item" (click)="openComicModal(comic.resourceURI)">{{comic.name | truncate:'36'}}</a>
+            </div>
         </div>
     </div>
 </div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" (click)='changePage(currentPage-1)' [hidden]="lowerLimitReached">&lt;</a></li>
+        <li class="page-item"><a class="page-link" (click)='changePage(currentPage-1)' [hidden]="lowerLimitReached">{{currentPage-1}}</a></li>
+        <li class="page-item"><a class="page-link current-page" *ngIf="numberOfPages>=currentPage">{{currentPage}}</a></li>
+        <li class="page-item"><a class="page-link" (click)='changePage(currentPage+1)' *ngIf="numberOfPages>=currentPage+1">{{currentPage+1}}</a></li>
+        <li class="page-item"><a class="page-link" (click)='changePage(currentPage+2)' *ngIf="numberOfPages>=currentPage+2">{{currentPage+2}}</a></li>
+        <li class="page-item"><a class="page-link" (click)='changePage(currentPage+3)' *ngIf="numberOfPages>=currentPage+3">{{currentPage+3}}</a></li>
+        <li class="page-item"><a class="page-link" (click)='changePage(currentPage+1)' *ngIf="numberOfPages>=currentPage+1">&gt;</a></li>
+    </ul>
+</nav>

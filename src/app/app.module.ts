@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from  '@angular/material/dialog'
 import { ComicDetailModalComponent } from './Comics/comic-detail.modal.component';
 import { CharacterDetailModalComponent } from './Characters/CharacterDetail/character-detail.modal.component';
+import { FavouritesComponent } from './Favourites/favourites.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CharacterDetailModalComponent } from './Characters/CharacterDetail/char
     CharactersComponent,
     TruncatePipe,
     ComicDetailModalComponent,
-    CharacterDetailModalComponent
+    CharacterDetailModalComponent,
+    FavouritesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,11 @@
+<br />
+<div class="favourites-container d-flex align-items-center">
+    <div class="favourites-icon"></div>
+    <div class="panel-title">My favourites</div>
+</div>
+<br />
+<div *ngFor="let comic of comics" style=" margin: 10px 10px 20px 10px; text-align: center;">
+    <div class="remove-favourite-icon" (click)="removeFavourite(comic)"></div>
+    <img src="{{comic.thumbnail.path}}/portrait_incredible.{{comic.thumbnail.extension}}" />
+    <div style="font-weight: 800;">{{comic.title}}</div>
+</div>

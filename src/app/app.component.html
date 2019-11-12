@@ -1,1 +1,23 @@
-<characters></characters>
+<ngx-spinner type="ball-clip-rotate-multiple" color="rgb(239, 28, 35)"></ngx-spinner>
+
+<div class="row header">
+    <div class="col-md-4 logoStand">
+        <img src="./assets/developer_marvel.png" />
+    </div>
+    <div class="col-md-4">
+        <div class="d-flex align-items-center search-box-container">
+            <input #nameStartsWith type="search" placeholder="Search character..." class="search-box" (keydown.enter)="filterByName(nameStartsWith.value)" />
+            <div class="search-icon" (click)="filterByName(nameStartsWith.value)"></div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-9 main-container">
+        <characters (theComic)="addComicToFavourites($event)"></characters>
+    </div>
+    <div class="col-md-3 favourites-panel">
+        <favourites [comics]="comics" (comicEmitter)="removeComicFromFavourite($event)"></favourites>
+    </div>
+</div>
