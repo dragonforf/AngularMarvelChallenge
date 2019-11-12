@@ -1,6 +1,9 @@
 export class Comic{
     id: number;
     title: string;
-    creators: string[];
     resourceURI: string;
+
+    constructor(title: string){
+        this.title=title;
+    }
 }

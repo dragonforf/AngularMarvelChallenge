@@ -3,6 +3,12 @@ import { CharactersService } from './characters.service';
 import { Character } from './character';
 import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {MatDialog} from '@angular/material/dialog';
+import { ComicDetailModalComponent } from '../Comics/comic-detail.modal.component';
+import { Comic } from '../Comics/comic';
+import { CharacterDetailModalComponent } from './CharacterDetail/character-detail.modal.component';
+import { Thumbnail } from '../Common/thumbnail';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'characters',
@@ -11,27 +17,27 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class CharactersComponent{
     currentPage: number=1;
-    characters: Observable<any>;
+    response: Observable<any>;
+    characters: Character[];
     lowerLimitReached: boolean=true;
-    nameStartsWith: string="";
+    nameStartsWith: string;
     numberOfPages: number;
     itemsPerPage: number;
+    sortBy: string="name";
 
-
-    constructor(private service: CharactersService, private spinner: NgxSpinnerService){}
+    constructor(private service: CharactersService, private spinner: NgxSpinnerService, private dialogService: MatDialog){}
 
     ngOnInit(){
+        this.characters=[];
         this.itemsPerPage=10;
         this.spinner.show();
-        this.service.getCharacters(this.itemsPerPage, this.currentPage, this.nameStartsWith).subscribe(
+        this.service.getCharacters(this.itemsPerPage, this.currentPage, this.nameStartsWith, this.sortBy).subscribe(
             (characters)=>{
-                console.log("this.itemsPerPage="+this.itemsPerPage);
                 this.numberOfPages=Math.ceil(characters[0]/this.itemsPerPage);
-                console.log("this.numberOfPages="+this.numberOfPages);
-                this.characters=characters[1];
-                this.characters.forEach(
+                this.response=characters[1];
+                this.response.forEach(
                     (i)=>{
-                        i.comics.items.splice(4, i.comics.items.length-4);
+                        this.characters.push(new Character(i.id, i.name, i.description, i.modified, i.comics.items, new Thumbnail(i.thumbnail.path, i.thumbnail.extension)));
                     }
                 )
                 this.spinner.hide();
@@ -53,4 +59,19 @@ export class CharactersComponent{
         }
     }
 
+    changeSorting(sortBy: string){
+        this.sortBy=sortBy.toLowerCase();
+        if(this.sortBy.includes("(descending)")){
+            this.sortBy="-"+this.sortBy.split(" ")[0];
+        }
+        this.changePage(1);
+    }
+
+    openCharacterModal(character: Character){
+        const dialogRef=this.dialogService.open(CharacterDetailModalComponent, {
+            width: '450px',
+            height: '450px',
+            data: character
+        });
+    }
 }

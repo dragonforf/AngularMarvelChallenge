@@ -160,3 +160,6 @@ div.btn-info:not(:disabled):not(.disabled):active {
   width: 40px;
   height: 40px;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

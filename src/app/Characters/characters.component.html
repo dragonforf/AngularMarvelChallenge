@@ -22,10 +22,11 @@
                 <div class="panel-title">Characters</div>
             </div>
             <div class="col-md-3">
-                <select class="form-control">
-                    <option>Sort by</option>
-                    <option>Sort by</option>
-                    <option>Sort by</option>
+                <select class="form-control" (change)="changeSorting($event.target.value)" aria-placeholder="Sort by">
+                    <option>Name</option>
+                    <option>Modified</option>
+                    <option>Name (Descending)</option>
+                    <option>Modified (Descending)</option>
                 </select>
             </div>
         </div>
@@ -39,12 +40,12 @@
                     <div class="col-md-8">
                         <div title="{{character.name}}" class="character-name">{{character.name | uppercase | truncate:'24'}}</div>
                         <div class="character-description">{{character.description | truncate:'165'}}</div>
-                        <div class="btn btn-info" (click)="toggleLoading()">VIEW MORE</div>
+                        <div class="btn btn-info" (click)="openCharacterModal(character)">VIEW MORE</div>
                     </div>
                 </div>
                 <div class="row" style="background-color: white;">                        
                     <div class="col-md-12 panel-subtitle">Related comics</div>
-                    <div *ngFor='let comic of character.comics.items' class="col-md-6 related-comic">&bull; {{comic.name | truncate:'36'}}</div>
+                    <div *ngFor='let comic of character.comics.slice(0, 4)' class="col-md-6 related-comic">&bull; {{comic.name | truncate:'36'}}</div>
                 </div>
             </div>
         </div>
@@ -52,7 +53,7 @@
             <ul class="pagination justify-content-center">
                 <li class="page-item"><a class="page-link" (click)='changePage(currentPage-1)' [hidden]="lowerLimitReached">&lt;</a></li>
                 <li class="page-item"><a class="page-link" (click)='changePage(currentPage-1)' [hidden]="lowerLimitReached">{{currentPage-1}}</a></li>
-                <li class="page-item"><a class="page-link current-page">{{currentPage}}</a></li>
+                <li class="page-item"><a class="page-link current-page" *ngIf="numberOfPages>=currentPage">{{currentPage}}</a></li>
                 <li class="page-item"><a class="page-link" (click)='changePage(currentPage+1)' *ngIf="numberOfPages>=currentPage+1">{{currentPage+1}}</a></li>
                 <li class="page-item"><a class="page-link" (click)='changePage(currentPage+2)' *ngIf="numberOfPages>=currentPage+2">{{currentPage+2}}</a></li>
                 <li class="page-item"><a class="page-link" (click)='changePage(currentPage+3)' *ngIf="numberOfPages>=currentPage+3">{{currentPage+3}}</a></li>

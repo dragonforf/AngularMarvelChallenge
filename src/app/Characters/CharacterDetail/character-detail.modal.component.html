@@ -1,0 +1,18 @@
+<div>
+    {{theCharacter.id}}
+</div>
+<div>
+    {{theCharacter.name}}
+</div>
+<div>
+    {{theCharacter.description}}
+</div>
+<div style="width: 100%; text-align: center;">
+    <img src='{{theCharacter.thumbnail.path+"/standard_fantastic."+theCharacter.thumbnail.extension}}' />
+</div>
+<div>
+    {{theCharacter.comics.length}}
+</div>
+<div *ngFor="let comic of theCharacter.comics">
+    &bull;{{comic.name}}
+</div>

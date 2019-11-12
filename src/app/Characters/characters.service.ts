@@ -16,12 +16,17 @@ export class CharactersService{
     
     constructor(private http: HttpClient){}
 
-    getCharacters(itemsPerPage:number, page: number, nameStartsWith?: string): Observable<any>{
+    getCharacters(itemsPerPage:number, page: number, nameStartsWith: string, sortBy: string): Observable<any>{
         this.offset="offset="+(page-1)*itemsPerPage;
         let requestUrl=this.charactersUrl+"?"+this.limit+"&"+this.offset;
         if(nameStartsWith!=null){
             if(nameStartsWith.length>0){
                 requestUrl=requestUrl+"&nameStartsWith="+nameStartsWith;
+            }
+        }
+        if(sortBy!=null){
+            if(sortBy.length>0){
+                requestUrl=requestUrl+"&orderBy="+sortBy;
             }
         }
         requestUrl=requestUrl+"&"+this.ts+"&"+this.apikey+"&"+this.hash;
