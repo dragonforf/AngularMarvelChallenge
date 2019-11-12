@@ -3,12 +3,12 @@ import { CharactersService } from './characters.service';
 import { Character } from './character';
 import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ComicDetailModalComponent } from '../Comics/comic-detail.modal.component';
 import { Comic } from '../Comics/comic';
 import { CharacterDetailModalComponent } from './CharacterDetail/character-detail.modal.component';
 import { Thumbnail } from '../Common/thumbnail';
-import { map } from 'rxjs/operators';
+import { ComicsService } from '../Comics/comics.service';
 
 @Component({
     selector: 'characters',
@@ -25,7 +25,7 @@ export class CharactersComponent{
     itemsPerPage: number;
     sortBy: string="name";
 
-    constructor(private service: CharactersService, private spinner: NgxSpinnerService, private dialogService: MatDialog){}
+    constructor(private service: CharactersService, private spinner: NgxSpinnerService, private dialogService: MatDialog, private comicService: ComicsService){}
 
     ngOnInit(){
         this.characters=[];
@@ -37,7 +37,15 @@ export class CharactersComponent{
                 this.response=characters[1];
                 this.response.forEach(
                     (i)=>{
-                        this.characters.push(new Character(i.id, i.name, i.description, i.modified, i.comics.items, new Thumbnail(i.thumbnail.path, i.thumbnail.extension)));
+                        this.characters.push(
+                            new Character(i.id,
+                                          i.name,
+                                          i.description,
+                                          i.modified,
+                                          i.comics.items,
+                                          new Thumbnail(i.thumbnail.path, i.thumbnail.extension)
+                            )
+                        );
                     }
                 )
                 this.spinner.hide();
@@ -69,9 +77,21 @@ export class CharactersComponent{
 
     openCharacterModal(character: Character){
         const dialogRef=this.dialogService.open(CharacterDetailModalComponent, {
-            width: '450px',
+            width: '700px',
             height: '450px',
             data: character
+        });
+    }
+
+    openComicModal(resourceURI: string){
+        this.spinner.show();
+        this.comicService.getComic(resourceURI).subscribe((comic)=>{
+            const dialogRef=this.dialogService.open(ComicDetailModalComponent, {
+                width: '700px',
+                height: '465px',
+                data: comic
+            });
+            this.spinner.hide();
         });
     }
 }

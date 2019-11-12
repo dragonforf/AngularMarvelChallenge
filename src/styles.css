@@ -31,6 +31,7 @@
   font-weight: 700;
   margin-left: 5px;
   font-size: 28px;
+  text-align: center;
 }
 
 .panel-subtitle {
@@ -161,5 +162,84 @@ div.btn-info:not(:disabled):not(.disabled):active {
   height: 40px;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.add-favourite {
+  background-color: rgb(240, 240, 240);
+  justify-content: center;
+}
+
+.add-favourite:hover {
+  cursor: pointer;
+}
+
+.add-favourite::selection {
+  background-color: transparent;
+}
+
+.buy-comic {
+  background-color: rgb(220, 220, 220);
+  justify-content: center;
+}
+
+.buy-comic:hover {
+  cursor: pointer;
+}
+
+.buy-comic::selection {
+  background-color: transparent;
+}
+
+.close-icon {
+  background-image: url('./assets/icons/btn-close.png');
+  width: 30px;
+  height: 30px;
+  float: right;
+  right: 0px;
+  top: 0px;
+}
+
+.close-icon:hover {
+  cursor: pointer;
+}
+
+div>a.comic-item:not([href]):not([tabindex]):hover {
+  cursor: pointer;
+  color: rgb(241, 10, 18);
+  font-weight: 700;
+}
+
+.add-favourite-icon {
+  background-image: url('./assets/icons/btn-favourites-default.png');
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+
+.add-favourite-icon:hover {
+  background-image: url('./assets/icons/favourites.png');
+}
+
+.shopping-cart-icon {
+  background-image: url('./assets/icons/shopping-cart-primary.png');
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+
+.favourites-container {
+  width: 100%;
+}
+
+.favourite-caption, .buy-comic-caption{
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

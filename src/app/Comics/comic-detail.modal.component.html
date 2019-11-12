@@ -1,1 +1,22 @@
-<h1>Hello</h1>
+<div class="row">
+    <div class="close-icon" (click)="closeDialog()"></div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <img src="{{theComic.thumbnail.path}}/portrait_incredible.{{theComic.thumbnail.extension}}" />
+    </div>
+    <div class="col-md-7">
+        <h2>{{theComic.title}}</h2>
+        <div>{{theComic.description}}</div>
+    </div>
+</div>
+<div class="row" style="width: 100%; height: 50px; margin: 10px 0px 0px 0px">
+    <div class="add-favourite col-md-6 d-flex align-items-center" (click)="addFavourite(theComic.id)">
+        <div class="add-favourite-icon"></div>
+        <div class="favourite-caption">ADD TO FAVOURITES</div>
+    </div>
+    <div class="buy-comic col-md-6 d-flex align-items-center">
+        <div class="shopping-cart-icon"></div>
+        <div class="buy-comic-caption">BUY FOR $3.99</div>
+    </div>
+</div>
