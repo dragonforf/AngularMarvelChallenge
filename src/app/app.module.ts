@@ -14,6 +14,15 @@ import { ComicDetailModalComponent } from './Comics/comic-detail.modal.component
 import { CharacterDetailModalComponent } from './Characters/CharacterDetail/character-detail.modal.component';
 import { FavouritesComponent } from './Favourites/favourites.component';
 
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,13 +38,19 @@ import { FavouritesComponent } from './Favourites/favourites.component';
     HttpClientModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    SwiperModule
   ],
   entryComponents:[
     ComicDetailModalComponent,
     CharacterDetailModalComponent
   ],
-  providers: [],
+  providers: [
+    {
+        provide: SWIPER_CONFIG,
+        useValue: DEFAULT_SWIPER_CONFIG
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -24,4 +24,16 @@ export class ComicsService{
                              new Thumbnail(theData.thumbnail.path, theData.thumbnail.extension));                             
          } ));
     }
+
+    getFeaturedComics(){
+        let resourceURI="https://gateway.marvel.com:443/v1/public/comics?"+this.ts+"&"+this.apikey+"&"+this.hash;
+        return this.http.get<any>(resourceURI).pipe(map((data) => {
+            let theData=data.data.results[0];
+            return new Comic(theData.id,
+                             theData.title,
+                             theData.description,
+                             theData.resourceURI,
+                             new Thumbnail(theData.thumbnail.path, theData.thumbnail.extension));                             
+         } ));
+    }
 }

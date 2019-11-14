@@ -6,11 +6,26 @@
     </div>
     <div class="col-md-4">
         <div class="d-flex align-items-center search-box-container">
-            <input #nameStartsWith type="search" placeholder="Search character..." class="search-box" (keydown.enter)="filterByName(nameStartsWith.value)" />
+            <input #nameStartsWith type="search" placeholder="Search character..." class="search-box"
+                (keydown.enter)="filterByName(nameStartsWith.value)" />
             <div class="search-icon" (click)="filterByName(nameStartsWith.value)"></div>
         </div>
     </div>
     <div class="col-md-4"></div>
+</div>
+
+<div style="text-align: center; background-color: rgb(244, 244, 244)" *ngIf="featuredComics.length>=1">
+    <h4>Featured comics</h4>
+    <div class="d-flex align-items-center">
+        <swiper class="swiper-container" fxFlex="auto" [config]="config" (indexChange)="onIndexChange($event)">
+            <div *ngFor="let comic of featuredComics" class="swiper-slide">
+                <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+                    <h6>{{comic.title}}</h6>
+                    <img src="{{comic.thumbnail.path}}/portrait_xlarge.{{comic.thumbnail.extension}}" />
+                </div>
+            </div>
+        </swiper>
+    </div>
 </div>
 
 <div class="row">
