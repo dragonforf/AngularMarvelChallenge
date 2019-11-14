@@ -6,12 +6,16 @@ import { Comic } from '../Comics/comic';
     templateUrl: './favourites.component.html'})
 export class FavouritesComponent implements OnInit{
     @Input() comics: Comic[];
-    @Output() comicEmitter=new EventEmitter<Comic>();
+    @Output() comicEmitter=new EventEmitter<[Comic, string]>();
 
     ngOnInit(){
     }
 
     removeFavourite(comic: Comic){
-        this.comicEmitter.emit(comic);
+        this.comicEmitter.emit([comic, "remove"]);
+    }
+
+    openComicModal(comic: Comic){
+        this.comicEmitter.emit([comic, "open"]);
     }
 }

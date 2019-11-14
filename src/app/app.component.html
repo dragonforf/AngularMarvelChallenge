@@ -15,9 +15,9 @@
 
 <div class="row">
     <div class="col-md-9 main-container">
-        <characters (theComic)="addComicToFavourites($event)"></characters>
+        <characters (theComic)="addComicToFavourites($event)" [favouriteComics]="comics"></characters>
     </div>
     <div class="col-md-3 favourites-panel">
-        <favourites [comics]="comics" (comicEmitter)="removeComicFromFavourite($event)"></favourites>
+        <favourites [comics]="comics" (comicEmitter)="resolveComic($event)"></favourites>
     </div>
 </div>

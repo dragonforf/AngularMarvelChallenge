@@ -156,11 +156,6 @@ div.btn-info:not(:disabled):not(.disabled):active {
   height: 40px;
 }
 
-.add-favourite {
-  background-color: rgb(240, 240, 240);
-  justify-content: center;
-}
-
 .add-favourite:hover {
   cursor: pointer;
 }
@@ -223,7 +218,6 @@ div>a.comic-item:not([href]):not([tabindex]):hover {
   width: 100%;
 }
 
-.favourite-caption,
 .buy-comic-caption {
   font-weight: 500;
   margin-left: 5px;
@@ -248,4 +242,43 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.favourite-card {
+  margin: 10px 10px 20px 10px;
+  text-align: center;
+}
+
+.comic-buttons {
+  width: 100%;
+  height: 50px;
+  margin: 10px 0px 0px 0px;
+}
+
+.related-comics-section {
+  background-color: white;
+}
+
+.character-modal-title {
+  text-align: center;
+}
+
+.character-modal-image {
+  width: 100%;
+  text-align: center;
+  margin: 15px 0px;
+}
+
+.character-modal-description {
+  margin: 10px 0px;
+}
+
+li>a.page-navigation{
+    padding: 0px;
+    width: 34px;
+    height: 38px;
+}
+
+.favourite-image:hover{
+    cursor: pointer;
 }

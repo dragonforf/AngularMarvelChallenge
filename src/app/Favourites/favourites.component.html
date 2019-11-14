@@ -4,8 +4,16 @@
     <div class="panel-title">My favourites</div>
 </div>
 <br />
-<div *ngFor="let comic of comics" style=" margin: 10px 10px 20px 10px; text-align: center;">
-    <div class="remove-favourite-icon" (click)="removeFavourite(comic)"></div>
-    <img src="{{comic.thumbnail.path}}/portrait_incredible.{{comic.thumbnail.extension}}" />
-    <div style="font-weight: 800;">{{comic.title}}</div>
+<div *ngFor="let comic of comics" class="favourite-card">
+    <div class="row">
+        <div class="col-xs-11 favourite-image" (click)="openComicModal(comic)">
+            <img src="{{comic.thumbnail.path}}/portrait_incredible.{{comic.thumbnail.extension}}" />
+        </div>
+        <div class="col-xs-1">
+            <div class="remove-favourite-icon" (click)="removeFavourite(comic)"></div>
+        </div>
+    </div>
+    <div>
+        <a class="comic-item" (click)="openComicModal(comic)">{{comic.title}}</a>
+    </div>
 </div>

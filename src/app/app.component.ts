@@ -12,10 +12,12 @@ export class AppComponent {
     title = 'The Challenge';
     comics: Comic[] = [];
 
-
     addComicToFavourites($event: Comic){
         if(this.comics.find((x)=> x.id==$event.id)==null){
             this.comics.push($event);
+        }
+        else{
+            this.removeComicFromFavourite($event);
         }
     }
 
@@ -23,7 +25,16 @@ export class AppComponent {
         this.child.filterByName(nameStartsWith);
     }
 
-    removeComicFromFavourite($event: Comic){
-        this.comics.splice(this.comics.indexOf($event), 1);
+    resolveComic($event){
+        if($event[1]=="remove"){
+            this.removeComicFromFavourite($event[0]);
+        }
+        else{
+            this.child.openComicModal($event[0].resourceURI);
+        }
+    }
+
+    removeComicFromFavourite(comic: Comic){
+        this.comics.splice(this.comics.indexOf(comic), 1);
     }
 }

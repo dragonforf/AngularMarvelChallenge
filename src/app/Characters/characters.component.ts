@@ -24,7 +24,8 @@ export class CharactersComponent{
     numberOfPages: number;
     itemsPerPage: number;
     sortBy: string="name";
-    @Output() theComic=new EventEmitter<Comic>(); 
+    @Output() theComic=new EventEmitter<Comic>();
+    @Input() favouriteComics: Comic[];
 
     constructor(private service: CharactersService, private spinner: NgxSpinnerService, private dialogService: MatDialog, private comicService: ComicsService){}
 
@@ -82,6 +83,13 @@ export class CharactersComponent{
             height: '450px',
             data: character
         });
+        dialogRef.afterClosed().subscribe(result => {
+            if(result){
+                if(result.event == 'OpenComicModal'){
+                  this.openComicModal(result.data);
+                }
+            }
+        });
     }
 
     openComicModal(resourceURI: string){
@@ -90,13 +98,15 @@ export class CharactersComponent{
             const dialogRef=this.dialogService.open(ComicDetailModalComponent, {
                 width: '700px',
                 height: '465px',
-                data: comic
+                data: {comic: comic, isFavourite: this.favouriteComics.find((x)=> x.id==comic.id)!=null}
             });
             dialogRef.afterClosed().subscribe(result => {
-                if(result.event == 'Add'){
-                  this.addFavourite(result.data);
-                }else if(result.event == 'Delete'){
-                  this.deleteFavourite(result.data);
+                if(result){
+                    if(result.event == 'Add'){
+                      this.addFavourite(result.data);
+                    }else if(result.event == 'Delete'){
+                      this.deleteFavourite(result.data);
+                    }
                 }
               });
             this.spinner.hide();

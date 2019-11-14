@@ -1,15 +1,15 @@
 <div>
     {{theCharacter.id}}
 </div>
-<div>
-    {{theCharacter.name}}
+<div class="character-modal-title">
+    <h3>{{theCharacter.name}}</h3>
 </div>
-<div>
-    {{theCharacter.description}}
-</div>
-<div style="width: 100%; text-align: center;">
+<div class="character-modal-image">
     <img src='{{theCharacter.thumbnail.path+"/standard_fantastic."+theCharacter.thumbnail.extension}}' />
 </div>
-<div *ngFor="let comic of theCharacter.comics">
-    &bull;{{comic.name}}
+<div class="character-modal-description">
+    {{theCharacter.description}}
+</div>
+<div *ngFor="let comic of theCharacter.comics" >
+    <a class="comic-item" (click)="openComicModal(comic)">&bull;{{comic.name}}</a>
 </div>
