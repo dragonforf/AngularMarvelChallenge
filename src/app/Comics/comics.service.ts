@@ -25,15 +25,14 @@ export class ComicsService{
          } ));
     }
 
-    getFeaturedComics(){
-        let resourceURI="https://gateway.marvel.com:443/v1/public/comics?"+this.ts+"&"+this.apikey+"&"+this.hash;
+    getFeaturedComics(): Observable<Comic[]>{
+        let resourceURI="https://gateway.marvel.com:443/v1/public/comics?limit=15&"+this.ts+"&"+this.apikey+"&"+this.hash;
         return this.http.get<any>(resourceURI).pipe(map((data) => {
-            let theData=data.data.results[0];
-            return new Comic(theData.id,
-                             theData.title,
-                             theData.description,
-                             theData.resourceURI,
-                             new Thumbnail(theData.thumbnail.path, theData.thumbnail.extension));                             
+            let theData: Comic[]=[];
+            data.data.results.forEach(element => {
+                theData.push(new Comic(element.id, element.title, element.description, element.resourceURI, new Thumbnail(element.thumbnail.path, element.thumbnail.extension)));
+            });;
+            return theData;
          } ));
     }
 }

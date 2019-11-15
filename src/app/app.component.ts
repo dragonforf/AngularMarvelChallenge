@@ -1,10 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Comic } from './Comics/comic';
 import { CharactersComponent } from './Characters/characters.component';
-import {
-    SwiperComponent, SwiperDirective, SwiperConfigInterface,
-    SwiperScrollbarInterface, SwiperPaginationInterface
-} from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { ComicsService } from './Comics/comics.service';
 
 @Component({
@@ -21,17 +18,16 @@ export class AppComponent implements OnInit{
     constructor(private service: ComicsService){}
 
     ngOnInit(){
-
+        this.service.getFeaturedComics().subscribe(result => this.featuredComics=result);
     }
-
 
     public config: SwiperConfigInterface = {
         direction: 'horizontal',
-        slidesPerView: 1,
+        slidesPerView: 3,
         keyboard: true,
-        mousewheel: false,
+        mousewheel: true,
         scrollbar: false,
-        navigation: false,
+        navigation: true,
         pagination: false
     };
 
@@ -53,8 +49,12 @@ export class AppComponent implements OnInit{
             this.removeComicFromFavourite($event[0]);
         }
         else {
-            this.child.openComicModal($event[0].resourceURI);
+            this.openComicModal($event[0]);
         }
+    }
+
+    openComicModal(comic: Comic){
+        this.child.openComicModal(comic.resourceURI);
     }
 
     removeComicFromFavourite(comic: Comic) {

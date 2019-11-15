@@ -273,28 +273,35 @@ body {
   margin: 10px 0px;
 }
 
-li>a.page-navigation{
-    padding: 0px;
-    width: 34px;
-    height: 38px;
+li>a.page-navigation {
+  padding: 0px;
+  width: 34px;
+  height: 38px;
 }
 
-.favourite-image:hover{
-    cursor: pointer;
+.favourite-image:hover {
+  cursor: pointer;
 }
 
 .swipe {
-    overflow: hidden;
-    visibility: hidden;
-    position: relative;
-  }
-  .swipe-wrap {
-    overflow: hidden;
-    position: relative;
-  }
-  .swipe-wrap > div {
-    float: left;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-  }
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.swipe-wrap>div {
+  float: left;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.featuredComics-container {
+  text-align: center;
+  background-color: rgb(240, 240, 240)
+}
