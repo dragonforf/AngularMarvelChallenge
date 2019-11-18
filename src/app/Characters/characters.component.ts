@@ -117,7 +117,7 @@ export class CharactersComponent{
         this.theComic.emit(comic);
     }
 
-    deleteFavourite(idComic: number){
-
+    deleteFavourite(comic: Comic){
+        this.favouriteComics.splice(this.favouriteComics.findIndex(x=>x.id==comic.id), 1);
     }
 }

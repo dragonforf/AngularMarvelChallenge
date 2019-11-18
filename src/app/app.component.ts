@@ -58,6 +58,6 @@ export class AppComponent implements OnInit{
     }
 
     removeComicFromFavourite(comic: Comic) {
-        this.comics.splice(this.comics.indexOf(comic), 1);
+        this.comics.splice(this.comics.findIndex(x=>x.id==comic.id), 1);
     }
 }

@@ -11,6 +11,7 @@ export class ComicDetailModalComponent {
     theComic: Comic;
     isFavourite: boolean;
     favouritesButtonCaption: string;
+
     constructor (public dialogRef: MatDialogRef<ComicDetailModalComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any){}
 
     ngOnInit(){
@@ -24,7 +25,7 @@ export class ComicDetailModalComponent {
     }
 
     addFavourite(){
-        this.dialogRef.close({event: "Add", data: this.theComic});
+        this.dialogRef.close({event: !this.isFavourite?"Add":"Delete", data: this.theComic});
     }
 
     conditionalStylingForFavouritesButton(){

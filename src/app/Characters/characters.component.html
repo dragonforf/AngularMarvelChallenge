@@ -21,15 +21,15 @@
                 <img class="character-thumbnail" src="{{character.thumbnail.path}}/standard_xlarge.{{character.thumbnail.extension}}" />
             </div>
             <div class="col-md-8">
-                <div title="{{character.name}}" class="character-name">{{character.name | uppercase | truncate:'24'}}</div>
-                <div class="character-description">{{character.description | truncate:'165'}}</div>
+                <div title="{{character.name}}" class="character-name">{{character.name | uppercase | truncate:24}}</div>
+                <div class="character-description">{{character.description | truncate:165}}</div>
                 <div class="btn btn-info" (click)="openCharacterModal(character)">VIEW MORE</div>
             </div>
         </div>
         <div class="row related-comics-section">                        
             <div class="col-md-12 panel-subtitle">Related comics</div>
             <div *ngFor='let comic of character.comics.slice(0, 4)' class="col-md-6 related-comic">
-                &bull; <a class="comic-item" (click)="openComicModal(comic.resourceURI)">{{comic.name | truncate:'36'}}</a>
+                &bull; <a class="comic-item" (click)="openComicModal(comic.resourceURI)">{{comic.name | truncate:36}}</a>
             </div>
         </div>
     </div>
